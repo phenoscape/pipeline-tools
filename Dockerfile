@@ -12,18 +12,16 @@ ENV KBOT 1.9.1
 
 
 ### 2. Get Java and all required system libraries
-RUN apt-get update && apt-get upgrade -y \
- && apt-get install -y software-properties-common build-essential git openjdk-8-jre openjdk-8-jdk
-
-RUN apt-get install -y make curl wget tar
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y software-properties-common build-essential openjdk-8-jre openjdk-8-jdk git make curl wget tar
 
 
 ### 3. Install custom tools
 WORKDIR /tools
 
 # Avoid repeated downloads of script dependencies by mounting the local coursier cache:
-docker run -v $HOME/.coursier/cache/v1:/tools/.coursier-cache ...
-ENV COURSIER_CACHE "/tools/.coursier-cache"
+#docker run -v $HOME/.coursier/cache/v1:/tools/.coursier-cache ...
+#ENV COURSIER_CACHE "/tools/.coursier-cache"
 
 
 ###### JENA ######
@@ -40,10 +38,9 @@ ENV PATH "/tools:$PATH"
 
 
 ###### DOSDPTOOLS ######
-RUN curl https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
-    && tar -zxvf dosdp-tools-$DOSDPVERSION.tgz \
-    && mv dosdp-tools-$DOSDPVERSION /tools/dosdp-tools \
-ENV PATH "/tools/dosdp-tools/bin:$PATH"
+RUN curl -O -L https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
+    && tar -zxvf dosdp-tools-$DOSDPVERSION.tgz
+ENV PATH "/tools/dosdp-tools-$DOSDPVERSION/bin:$PATH"
 
 ###### BLAZEGRPAH-RUNNER ######
 RUN curl -O -L https://github.com/balhoff/blazegraph-runner/releases/download/v$BGR/blazegraph-runner-$BGR.tgz \
