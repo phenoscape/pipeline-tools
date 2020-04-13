@@ -21,7 +21,7 @@ WORKDIR /tools
 
 # Avoid repeated downloads of script dependencies by mounting the local coursier cache:
 #docker run -v $HOME/.coursier/cache/v1:/tools/.coursier-cache ...
-#ENV COURSIER_CACHE "/tools/.coursier-cache"
+ENV COURSIER_CACHE "/tools/.coursier-cache"
 
 
 ###### JENA ######
