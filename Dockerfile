@@ -39,18 +39,19 @@ ENV PATH "/tools:$PATH"
 
 ###### DOSDPTOOLS ######
 RUN curl -O -L https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
-    && tar -zxvf dosdp-tools-$DOSDPVERSION.tgz
+    && tar -zxvf dosdp-tools-$DOSDPVERSION.tgz \
+    && chmod +x /tools/dosdp-tools-$DOSDPVERSION
 ENV PATH "/tools/dosdp-tools-$DOSDPVERSION/bin:$PATH"
 
 ###### BLAZEGRPAH-RUNNER ######
 RUN curl -O -L https://github.com/balhoff/blazegraph-runner/releases/download/v$BGR/blazegraph-runner-$BGR.tgz \
-    && tar -zxf blazegraph-runner-$BGR.tgz
+    && tar -zxf blazegraph-runner-$BGR.tgz \
+    && chmod +x /tools/blazegraph-runner-$BGR
 ENV PATH "/tools/blazegraph-runner-$BGR/bin:$PATH"
 
 ###### KB-OWL-TOOLS ######
 RUN curl -O -L https://github.com/phenoscape/phenoscape-owl-tools/releases/download/v$KBOT/kb-owl-tools-$KBOT.tgz \
-    && tar -zxf kb-owl-tools-$KBOT.tgz
+    && tar -zxf kb-owl-tools-$KBOT.tgz \
+    && chmod +x /tools/kb-owl-tools-$KBOT
 ENV PATH "/tools/kb-owl-tools-$KBOT/bin:$PATH"
-
-RUN chmod +x /tools/*
 
