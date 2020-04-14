@@ -12,11 +12,10 @@ ENV KBOT 1.9.1
 
 
 ### 2. Get Java and all required system libraries
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     software-properties-common \
     build-essential \
-    openjdk-8-jre \
     openjdk-8-jdk \
     git \
     make \
