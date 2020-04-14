@@ -13,24 +13,19 @@ ENV KBOT 1.9.1
 
 ### 2. Get Java and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
- && apt-get install -y software-properties-common \
-  build-essential git \
-  openjdk-8-jre openjdk-8-jdk
+    && apt-get install -y \
+    software-properties-common \
+    build-essential \
+    openjdk-8-jdk \
+    git \
+    make \
+    curl \
+    wget \
+    tar
 
-RUN apt-get update \
-    && apt-get install -y make curl git wget tar
-
-RUN pwd
 
 ### 3. Install custom tools
 WORKDIR /tools
-
-RUN pwd
-
-# Avoid repeated downloads of script dependencies by mounting the local coursier cache:
-# docker run -v $HOME/.coursier/cache/v1:/tools/.coursier-cache ...
-#ENV COURSIER_CACHE "/tools/.coursier-cache"
-
 
 ###### JENA ######
 RUN curl -O -L http://archive.apache.org/dist/jena/binaries/apache-jena-$JENA.tar.gz \
@@ -46,21 +41,20 @@ ENV PATH "/tools:$PATH"
 
 
 ###### DOSDPTOOLS ######
-RUN wget -nv https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
-&& tar -zxvf dosdp-tools-$DOSDPVERSION.tgz \
-&& mv dosdp-tools-$DOSDPVERSION /tools/dosdp-tools \
-&& wget --no-check-certificate https://raw.githubusercontent.com/INCATools/dead_simple_owl_design_patterns/master/src/simple_pattern_tester.py -O /tools/simple_pattern_tester.py
-ENV PATH "/tools/dosdp-tools/bin:$PATH"
+RUN curl -O -L https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
+    && tar -zxf dosdp-tools-$DOSDPVERSION.tgz \
+    && chmod +x /tools/dosdp-tools-$DOSDPVERSION
+ENV PATH "/tools/dosdp-tools-$DOSDPVERSION/bin:$PATH"
 
 ###### BLAZEGRPAH-RUNNER ######
 RUN curl -O -L https://github.com/balhoff/blazegraph-runner/releases/download/v$BGR/blazegraph-runner-$BGR.tgz \
-&& tar -zxf blazegraph-runner-$BGR.tgz
+    && tar -zxf blazegraph-runner-$BGR.tgz \
+    && chmod +x /tools/blazegraph-runner-$BGR
 ENV PATH "/tools/blazegraph-runner-$BGR/bin:$PATH"
 
 ###### KB-OWL-TOOLS ######
 RUN curl -O -L https://github.com/phenoscape/phenoscape-owl-tools/releases/download/v$KBOT/kb-owl-tools-$KBOT.tgz \
-&& tar -zxf kb-owl-tools-$KBOT.tgz
+    && tar -zxf kb-owl-tools-$KBOT.tgz \
+    && chmod +x /tools/kb-owl-tools-$KBOT
 ENV PATH "/tools/kb-owl-tools-$KBOT/bin:$PATH"
-
-RUN chmod +x /tools/*
 
