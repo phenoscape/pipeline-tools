@@ -12,6 +12,6 @@ tag-latest:
 run:
 	docker run --rm -ti --name phenoscape-pipeline-tools $(DOCKER_IMAGE)
 
-publish: build
+publish: build tag-latest
 	docker push $(DOCKER_IMAGE):$(TAG)
 	docker push $(DOCKER_IMAGE):latest
