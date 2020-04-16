@@ -1,18 +1,15 @@
 # Building docker image
 TAG = v1.0.0
-LATEST_TAG = v1.0.0
 DOCKER_IMAGE = phenoscape/pipeline-tools
 
-build:
-	docker build -t $(DOCKER_IMAGE):$(TAG) . 
+build-tag:
+	docker build -t $(DOCKER_IMAGE):$(TAG) .
 
-tag-latest:
-	docker tag $(DOCKER_IMAGE):$(LATEST_TAG) $(DOCKER_IMAGE):latest
-
-run:
-	docker run --rm -ti $(DOCKER_IMAGE)
-
-publish: build tag-latest
+publish-tag: build-tag
 	docker push $(DOCKER_IMAGE):$(TAG)
-	docker push $(DOCKER_IMAGE):latest
 
+tag-latest: build-tag
+	docker tag $(DOCKER_IMAGE):$(TAG) $(DOCKER_IMAGE):latest
+
+publish-latest: tag-latest
+	docker push $(DOCKER_IMAGE):latest
