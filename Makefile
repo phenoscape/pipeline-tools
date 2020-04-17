@@ -1,5 +1,9 @@
 # Building docker image
-TAG = v1.0.0
+
+ifndef TAG
+$(error TAG is not set)
+endif
+
 DOCKER_IMAGE = phenoscape/pipeline-tools
 
 build-tag:
