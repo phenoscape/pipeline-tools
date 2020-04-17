@@ -13,3 +13,5 @@ tag-latest: build-tag
 
 publish-latest: tag-latest
 	docker push $(DOCKER_IMAGE):latest
+
+publish-latest-tag: build-tag tag-latest publish-tag publish-latest
