@@ -11,7 +11,7 @@ ENV BGR 1.4
 ENV KBOT 1.9.1
 
 
-### 2. Get Java and all required system libraries
+### 2. Get Java, Python and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     software-properties-common \
@@ -21,11 +21,23 @@ RUN apt-get update && apt-get upgrade -y \
     make \
     curl \
     wget \
-    tar
+    tar \
+    python2.7 python2.7-dev python-pip
 
 
 ### 3. Install custom tools
 WORKDIR /tools
+
+
+### Python packages ###
+RUN pip2 install virtualenv &&\
+    virtualenv -p python2.7 pyenv &&\
+    . pyenv/bin/activate &&\
+    pip2 install 'pandas==0.19.1' &&\
+    pip2 install 'scipy==0.15.1' &&\
+    pip2 install 'patsy==0.4.1' &&\
+    pip2 install 'statsmodels==0.6.1'
+
 
 ###### JENA ######
 RUN curl -O -L http://archive.apache.org/dist/jena/binaries/apache-jena-$JENA.tar.gz \
@@ -40,13 +52,13 @@ RUN curl -O -L https://github.com/ontodev/robot/releases/download/v$ROBOT/robot.
 ENV PATH "/tools:$PATH"
 
 
-###### DOSDPTOOLS ######
+###### DOSDP-TOOLS ######
 RUN curl -O -L https://github.com/INCATools/dosdp-tools/releases/download/v$DOSDPVERSION/dosdp-tools-$DOSDPVERSION.tgz \
     && tar -zxf dosdp-tools-$DOSDPVERSION.tgz \
     && chmod +x /tools/dosdp-tools-$DOSDPVERSION
 ENV PATH "/tools/dosdp-tools-$DOSDPVERSION/bin:$PATH"
 
-###### BLAZEGRPAH-RUNNER ######
+###### BLAZEGRAPH-RUNNER ######
 RUN curl -O -L https://github.com/balhoff/blazegraph-runner/releases/download/v$BGR/blazegraph-runner-$BGR.tgz \
     && tar -zxf blazegraph-runner-$BGR.tgz \
     && chmod +x /tools/blazegraph-runner-$BGR
@@ -55,6 +67,6 @@ ENV PATH "/tools/blazegraph-runner-$BGR/bin:$PATH"
 ###### KB-OWL-TOOLS ######
 RUN curl -O -L https://github.com/phenoscape/phenoscape-owl-tools/releases/download/v$KBOT/kb-owl-tools-$KBOT.tgz \
     && tar -zxf kb-owl-tools-$KBOT.tgz \
-    && chmod +x /tools/kb-owl-tools-$KBOT
+    && chmod +x /tools/kb-owl-tools-$KBOT && curl -L -O https://github.com/phenoscape/phenoscape-owl-tools/raw/v$KBOT/src/regression.py
 ENV PATH "/tools/kb-owl-tools-$KBOT/bin:$PATH"
 
