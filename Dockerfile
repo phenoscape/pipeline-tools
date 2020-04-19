@@ -22,7 +22,9 @@ RUN apt-get update && apt-get upgrade -y \
     curl \
     wget \
     tar \
-    python2.7 python2.7-dev python-pip
+    python2.7 \
+    python2.7-dev \
+    python-pip
 
 
 ### 3. Install custom tools
@@ -67,6 +69,6 @@ ENV PATH "/tools/blazegraph-runner-$BGR/bin:$PATH"
 ###### KB-OWL-TOOLS ######
 RUN curl -O -L https://github.com/phenoscape/phenoscape-owl-tools/releases/download/v$KBOT/kb-owl-tools-$KBOT.tgz \
     && tar -zxf kb-owl-tools-$KBOT.tgz \
-    && chmod +x /tools/kb-owl-tools-$KBOT && curl -L -O https://github.com/phenoscape/phenoscape-owl-tools/raw/v$KBOT/src/regression.py
+    && chmod +x /tools/kb-owl-tools-$KBOT \
+    && curl -L -O https://github.com/phenoscape/phenoscape-owl-tools/raw/v$KBOT/src/regression.py
 ENV PATH "/tools/kb-owl-tools-$KBOT/bin:$PATH"
-
