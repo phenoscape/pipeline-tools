@@ -1,5 +1,8 @@
 # Building docker image
 
+# Usage example
+# make TAG=xxx publish-latest-tag
+
 ifndef TAG
 $(error TAG is not set)
 endif
@@ -18,4 +21,4 @@ tag-latest: build-tag
 publish-latest: tag-latest
 	docker push $(DOCKER_IMAGE):latest
 
-publish-latest-tag: build-tag tag-latest publish-tag publish-latest
+publish-latest-tag: publish-tag publish-latest
