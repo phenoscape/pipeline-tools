@@ -33,8 +33,8 @@ RUN pip2 install virtualenv &&\
     pip2 install 'scipy==0.15.1' &&\
     pip2 install 'patsy==0.4.1' &&\
     pip2 install 'statsmodels==0.6.1'
-ENV VIRTUAL_ENV=/tools/pyenv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV VIRTUAL_ENV /tools/pyenv
+ENV PATH "$VIRTUAL_ENV/bin:$PATH"
 
 ###### JENA ######
 RUN curl -O -L http://archive.apache.org/dist/jena/binaries/apache-jena-$JENA.tar.gz \
