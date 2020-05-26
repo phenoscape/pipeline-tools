@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 ARG ROBOT=1.6.0
 ARG DOSDP=0.14
 ARG JENA=3.12.0
-ARG BGR=1.5
+ARG BGR=1.6
 ARG KBOT=1.11
 
 ### 2. Get Java, Python and all required system libraries
