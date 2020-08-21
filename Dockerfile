@@ -9,6 +9,8 @@ ARG BGR=1.6
 ARG KBOT=1.11
 ARG RELGRAPH=1.0
 
+ENV LANG en_US.UTF-8
+
 ### 2. Get Java, Python and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
