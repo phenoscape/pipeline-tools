@@ -9,8 +9,6 @@ ARG BGR=1.6.2
 ARG KBOT=1.12
 ARG RELGRAPH=1.0
 
-ENV LANG en_US.UTF-8
-
 ### 2. Get Java, Python and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
@@ -23,7 +21,11 @@ RUN apt-get update && apt-get upgrade -y \
     tar \
     python2.7 \
     python2.7-dev \
-    python-pip
+    python-pip \
+    locales \
+    && locale-gen "en_US.UTF-8"
+
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 ### 3. Install custom tools
 WORKDIR /tools
