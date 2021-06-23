@@ -2,12 +2,12 @@
 ### 1. Get Linux
 FROM ubuntu:18.04
 
-ARG ROBOT=1.6.0
-ARG DOSDP=0.14
-ARG JENA=3.12.0
-ARG BGR=1.6.2
+ARG ROBOT=1.8.1
+ARG DOSDP=0.17
+ARG JENA=3.17.0
+ARG BGR=1.6.4
 ARG KBOT=1.12
-ARG RELGRAPH=1.0
+ARG RELGRAPH=1.2.1
 
 ### 2. Get Java, Python and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
