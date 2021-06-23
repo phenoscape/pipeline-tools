@@ -3,7 +3,7 @@
 # Usage example
 # make TAG=xxx publish-latest-tag
 
-# current latest tag = v1.5.2
+# current latest tag = v1.5.3
 
 
 ifndef TAG
