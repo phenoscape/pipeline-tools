@@ -2,19 +2,19 @@
 ### 1. Get Linux
 FROM ubuntu:18.04
 
-ARG ROBOT=1.8.1
-ARG DOSDP=0.17
-ARG JENA=3.17.0
-ARG BGR=1.6.4
+ARG ROBOT=1.9.0
+ARG DOSDP=0.19.3
+ARG JENA=4.5.0
+ARG BGR=1.6.5
 ARG KBOT=1.12
-ARG RELGRAPH=1.2.1
+ARG RELGRAPH=2.2.0
 
 ### 2. Get Java, Python and all required system libraries
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
     software-properties-common \
     build-essential \
-    openjdk-8-jdk \
+    openjdk-11-jdk \
     git \
     make \
     curl \
@@ -59,9 +59,9 @@ RUN curl -O -L https://github.com/INCATools/dosdp-tools/releases/download/v$DOSD
 ENV PATH "/tools/dosdp-tools-$DOSDP/bin:$PATH"
 
 ###### RELATION-GRAPH ######
-RUN curl -O -L https://github.com/balhoff/relation-graph/releases/download/v$RELGRAPH/relation-graph-$RELGRAPH.tgz \
-    && tar -zxf relation-graph-$RELGRAPH.tgz
-ENV PATH "/tools/relation-graph-$RELGRAPH/bin:$PATH"
+RUN curl -O -L https://github.com/balhoff/relation-graph/releases/download/v$RELGRAPH/relation-graph-cli-$RELGRAPH.tgz \
+    && tar -zxf relation-graph-cli-$RELGRAPH.tgz
+ENV PATH "/tools/relation-graph-cli-$RELGRAPH/bin:$PATH"
 
 ###### BLAZEGRAPH-RUNNER ######
 RUN curl -O -L https://github.com/balhoff/blazegraph-runner/releases/download/v$BGR/blazegraph-runner-$BGR.tgz \
